@@ -1,0 +1,12 @@
+# gitignore
+
+/.idea/
+/.vscode/
+/.vs/
+
+/target/
+/bin/
+/tmp/
+.settings/
+.target
+*.iml
