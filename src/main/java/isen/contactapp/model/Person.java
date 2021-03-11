@@ -29,6 +29,12 @@ public class Person {
         this.birthDate = birthDate;
     }
 
+
+    public String getPerson() {
+        return firstname + " " + lastname;
+    }
+
+
     /* GETTERS AND SETTERS */
 
     public Integer getId() {

@@ -4,6 +4,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -19,12 +21,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setTitle("App title");
+        stage.setTitle("Contact");
         mainlayout = loadFXML("MainLayout");
 
         scene = new Scene(mainlayout, 640, 480);
         stage.setScene(scene);
         stage.show();
+
+        App.showView("ContactDetails");
     }
 
     public static void setRoot(String fxml) throws IOException {

@@ -4,6 +4,7 @@ import isen.contactapp.model.Person;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -46,13 +47,22 @@ public class PersonDaoTestCase {
     @Test
     public void shouldListPersons() {
         // WHEN
-        List<Person> Persons = PersonsDao.listPersons();
+        List<Person> persons = PersonsDao.listPersons();
         // THEN
-        assertThat(Persons).hasSize(3);
-        assertThat(Persons).extracting("id", "lastname", "firstname", "nickname", "phoneNumber", "address", "emailAddress", "birthDate")
+        assertThat(persons).hasSize(3);
+        assertThat(persons).extracting("id", "lastname", "firstname", "nickname", "phoneNumber", "address", "emailAddress", "birthDate")
                 .containsOnly(tuple(1, "Tom", "King", "Tommy", "0001", "101, main street", "tommy@cool.co", LocalDate.parse("1980-01-01")),
                         tuple(2, "John", "Kennedy", "Jojo", "0002", "2, second street", "jojo@cool.co", LocalDate.parse("1986-01-01")),
                         tuple(3, "Bob", "Dylan", "Bobby", "0003", "1, high street", "boby@high.co", LocalDate.parse("1990-01-01")));
+    }
+
+    @Test
+    public void shouldGetPerson() throws Exception {
+        //WHEN
+        Person person = PersonsDao.getPerson(1);
+        // THEN
+        assertThat(person);
+        // TODO test getPerson()
     }
 
     @Test

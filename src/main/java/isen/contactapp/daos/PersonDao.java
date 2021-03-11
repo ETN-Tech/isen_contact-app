@@ -38,7 +38,7 @@ public class PersonDao {
      * @return the Person found
      * @throws Exception if person not found
      */
-    public Person getPerson(int personId) throws Exception {
+    public Person getPerson(int personId) {
         try (Connection connection = getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE idperson = ?")) {
                 statement.setInt(1, personId);
@@ -51,7 +51,7 @@ public class PersonDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new Exception("No person with id " + personId + " in database.");
+        throw new RuntimeException("No person with id " + personId + " in database.");
     }
 
     /**
