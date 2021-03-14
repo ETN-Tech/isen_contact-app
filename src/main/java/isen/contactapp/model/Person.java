@@ -16,6 +16,13 @@ public class Person {
     /* CONSTRUCTORS */
 
     public Person() {
+        this.lastname = "";
+        this.firstname = "Person";
+        this.nickname = "";
+        this.phoneNumber = "";
+        this.address = "";
+        this.emailAddress = "";
+        this.birthDate = LocalDate.now();
     }
 
     public Person(Integer id, String lastname, String firstname, String nickname, String phoneNumber, String address, String emailAddress, LocalDate birthDate) {
@@ -99,5 +106,19 @@ public class Person {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", lastname='" + lastname + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", emailAddress='" + emailAddress + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
     }
 }

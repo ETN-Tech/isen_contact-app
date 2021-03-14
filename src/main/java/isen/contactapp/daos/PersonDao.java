@@ -60,7 +60,7 @@ public class PersonDao {
      * @return Person created with its id
      * @throws Exception if can not add person to database
      */
-    public Person addPerson(Person person) throws Exception {
+    public Person addPerson(Person person) {
         try (Connection connection = getConnection()) {
             String query = "INSERT INTO person (lastname, firstname, nickname, phone_number, address, email_address, birth_date) VALUES (?,?,?,?,?,?,?)";
             try (PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
@@ -91,14 +91,14 @@ public class PersonDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new Exception("Can not add Person to database");
+        throw new RuntimeException("Can not add Person to database");
     }
 
     /**
      * update a specific person in the database
      * @param person entity with new fields value
      */
-    public void updatePerson(Person person) throws Exception {
+    public void updatePerson(Person person) {
         try (Connection connection = getConnection()) {
             String query = "UPDATE person SET lastname = ?, firstname = ?, nickname = ?, phone_number = ?, address = ?, email_address = ?, birth_date = ? WHERE idperson = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -119,7 +119,7 @@ public class PersonDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new Exception("Can not update person on database");
+        throw new RuntimeException("Can not update person on database");
     }
 
     /**
@@ -127,7 +127,7 @@ public class PersonDao {
      * @param personId of the person to delete
      * @throws Exception
      */
-    public void deletePerson(int personId) throws Exception {
+    public void deletePerson(int personId) {
         try (Connection connection = getConnection()) {
             String query = "DELETE FROM person WHERE idperson = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -142,7 +142,7 @@ public class PersonDao {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        throw new Exception("Can not delete person form database");
+        throw new RuntimeException("Can not delete person form database");
     }
 
     /**

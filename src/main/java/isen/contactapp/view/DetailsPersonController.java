@@ -1,26 +1,21 @@
 package isen.contactapp.view;
 
-import java.time.format.DateTimeFormatter;
-
 import isen.contactapp.App;
-import isen.contactapp.daos.PersonDao;
 import isen.contactapp.model.Person;
+import isen.contactapp.util.ExportVCard;
 import isen.contactapp.util.PersonChangeListener;
-import isen.contactapp.service.PersonService;
 import isen.contactapp.util.PersonValueFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
-public class ContactDetailsController {
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.format.DateTimeFormatter;
 
-    @FXML
-    private TableView<Person> personTable;
-    @FXML
-    private TableColumn personColumn;
-    @FXML
-    private AnchorPane personPane;
+public class DetailsPersonController extends PersonController {
+    
     @FXML
     private Text firstname;
     @FXML
@@ -36,12 +31,17 @@ public class ContactDetailsController {
     @FXML
     private Text birthDate;
 
-    void showPersonDetails(Person person) {
+    @Override
+    public void initController(Person person) {
+    }
+
+    protected void showPersonDetails(Person person) {
         if (person == null) {
             personPane.setVisible(false);
         }
         else {
             personPane.setVisible(true);
+            currentPerson = person;
 
             firstname.setText(person.getFirstname());
             lastname.setText(person.getLastname());
@@ -49,24 +49,9 @@ public class ContactDetailsController {
             phoneNumber.setText(person.getPhoneNumber());
             address.setText(person.getAddress());
             emailAddress.setText(person.getEmailAddress());
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d LLLL yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
             birthDate.setText(person.getBirthDate().format(formatter));
         }
-    }
-
-    private void refreshList() {
-        personTable.refresh();
-        personTable.getSelectionModel().clearSelection();
-    }
-
-    private void populateList() {
-        personTable.setItems(PersonService.getPersons());
-        refreshList();
-    }
-
-    public void resetView() {
-        showPersonDetails(null);
-        refreshList();
     }
 
     @FXML
@@ -81,25 +66,38 @@ public class ContactDetailsController {
                 showPersonDetails(newValue);
             }
         });
-        refreshList();
+        resetView();
     }
 
     @FXML
     private void newContact() {
-        // TODO
-        App.showView("ContactEdit");
+        App.showView("EditPerson");
     }
 
     @FXML
     private void editContact() {
-        // TODO
-        App.showView("ContactEdit");
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        App.showView("EditPerson", selectedPerson);
+    }
+
+    @FXML
+    private void exportContact() throws IOException {
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+
+        ExportVCard exporter = new ExportVCard("backup/");
+        exporter.exportToVcard(selectedPerson);
     }
 
     @FXML
     private void deleteContact() {
-        // TODO
-        App.showView("ContactEdit");
+        int selectedIndex = personTable.getSelectionModel().getSelectedIndex();
+        Person selectedPerson = personTable.getSelectionModel().getSelectedItem();
+        if (selectedIndex >= 0) {
+            personTable.getItems().remove(selectedIndex);
+            personDao.deletePerson(selectedPerson.getId());
+            resetView();
+        }
+        personTable.getSelectionModel().clearSelection();
     }
 
 }

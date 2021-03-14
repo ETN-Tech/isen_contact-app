@@ -7,7 +7,7 @@ import javafx.collections.ObservableList;
 
 public class PersonService {
 
-    private PersonDao personDao = new PersonDao();
+    private static PersonDao personDao = new PersonDao();
 
     private ObservableList<Person> persons;
 
@@ -18,6 +18,11 @@ public class PersonService {
 
     public static ObservableList<Person> getPersons() {
         return PersonServiceHolder.INSTANCE.persons;
+    }
+
+    public static void addPerson(Person person) {
+        //personDao.addPerson(person);
+        PersonServiceHolder.INSTANCE.persons.add(person);
     }
 
     private static class PersonServiceHolder {
