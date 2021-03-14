@@ -1,6 +1,6 @@
 # Projet Java 2 - Contact App
 
-## TODO
+## Travail effectué
 - [Interface JavaFX](#interface-javafx-partie-graphique) _(Junior + Etienne)_
 - [Backup/Export des contacts](#backupexport-des-contacts-vcards) _(Alex)_
 - [Gestion des contacts](#gestion-des-contacts-application--controllers) _(Etienne)_
