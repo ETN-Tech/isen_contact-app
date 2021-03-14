@@ -4,9 +4,9 @@ import isen.contactapp.model.Person;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.swing.plaf.nimbus.State;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.tuple;
 
 public class PersonDaoTestCase {
 
-    private PersonDao PersonsDao = new PersonDao();
+    private PersonDao personDao = new PersonDao();
 
     @Before
     public void initDb() throws Exception {
@@ -47,7 +47,7 @@ public class PersonDaoTestCase {
     @Test
     public void shouldListPersons() {
         // WHEN
-        List<Person> persons = PersonsDao.listPersons();
+        List<Person> persons = personDao.listPersons();
         // THEN
         assertThat(persons).hasSize(3);
         assertThat(persons).extracting("id", "lastname", "firstname", "nickname", "phoneNumber", "address", "emailAddress", "birthDate")
@@ -57,12 +57,11 @@ public class PersonDaoTestCase {
     }
 
     @Test
-    public void shouldGetPerson() throws Exception {
+    public void shouldGetPerson() {
         //WHEN
-        Person person = PersonsDao.getPerson(1);
+        Person person = personDao.getPerson(1);
         // THEN
-        assertThat(person);
-        // TODO test getPerson()
+        assertThat(person).isEqualTo(new Person(1, "Tom", "King", "Tommy", "0001", "101, main street", "tommy@cool.co", LocalDate.parse("1980-01-01")));
     }
 
     @Test
@@ -70,7 +69,7 @@ public class PersonDaoTestCase {
         // GIVEN
         Person Person = new Person(null, "Daniel", "Boon", "Dany", "0004", "22, belgian street", "dany@cool.co", LocalDate.parse("1982-01-01"));
         // WHEN
-        Person insertedPerson = PersonsDao.addPerson(Person);
+        Person insertedPerson = personDao.addPerson(Person);
         // THEN
         Connection connection = getConnection();
         Statement statement = connection.createStatement();
@@ -81,6 +80,49 @@ public class PersonDaoTestCase {
         resultSet.close();
         statement.close();
         connection.close();
+    }
+
+    @Test
+    public void shouldUpdatePerson() throws SQLException {
+        // GIVEN
+        Person person = new Person(1, "Tommy", "King", "Big Tom", "1000", "100, main street", "tommyking@cool.co", LocalDate.parse("1980-01-11"));
+        // WHEN
+        personDao.updatePerson(person);
+        // THEN
+        Connection connection = getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Person WHERE idperson = 1");
+        assertThat(person).isEqualTo(createPersonFromResult(resultSet));
+        resultSet.close();
+        statement.close();
+        connection.close();
+    }
+
+    @Test
+    public void shouldDeletePerson() throws Exception {
+        // WHEN
+        personDao.deletePerson(1);
+        // THEN
+        Connection connection = getConnection();
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM Person WHERE idperson = 1");
+        assertThat(resultSet.next()).isFalse();
+        resultSet.close();
+        statement.close();
+        connection.close();
+    }
+
+    private Person createPersonFromResult(ResultSet result) throws SQLException {
+        return new Person(
+                result.getInt("idperson"),
+                result.getString("lastname"),
+                result.getString("firstname"),
+                result.getString("nickname"),
+                result.getString("phone_number"),
+                result.getString("address"),
+                result.getString("email_address"),
+                result.getDate("birth_date").toLocalDate()
+        );
     }
 }
 

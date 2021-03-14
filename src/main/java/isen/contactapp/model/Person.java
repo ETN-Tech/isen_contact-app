@@ -1,6 +1,7 @@
 package isen.contactapp.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Person {
 
@@ -120,5 +121,18 @@ public class Person {
                 ", emailAddress='" + emailAddress + '\'' +
                 ", birthDate=" + birthDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(id, person.id) && Objects.equals(lastname, person.lastname) && Objects.equals(firstname, person.firstname) && Objects.equals(nickname, person.nickname) && Objects.equals(phoneNumber, person.phoneNumber) && Objects.equals(address, person.address) && Objects.equals(emailAddress, person.emailAddress) && Objects.equals(birthDate, person.birthDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, lastname, firstname, nickname, phoneNumber, address, emailAddress, birthDate);
     }
 }
