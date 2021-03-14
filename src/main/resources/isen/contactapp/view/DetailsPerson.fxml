@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<SplitPane dividerPositions="0.3" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="isen.contactapp.view.DetailsPersonController">
+<items>
+   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+         <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+            <TableView fx:id="personTable">
+               <columns>
+                  <TableColumn fx:id="personColumn" prefWidth="175.0" text="Contacts" />
+               </columns>
+                  <VBox.margin>
+                     <Insets />
+                  </VBox.margin>
+            </TableView>
+               <HBox>
+                  <children>
+                  <Button mnemonicParsing="false" onAction="#newContact" text="New">
+                        <HBox.margin>
+                           <Insets right="5.0" />
+                        </HBox.margin>
+                     </Button>
+                  </children>
+                  <padding>
+                     <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                  </padding>
+               </HBox>
+            </children>
+         </VBox>
+   </AnchorPane>
+   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+      <children>
+         <AnchorPane fx:id="personPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TextFlow layoutX="40.0" layoutY="40.0">
+               <children>
+                  <Text fx:id="firstname" layoutX="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Firstname" x="100.0">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Text>
+                  <VBox>
+                     <children>
+                        <Text fx:id="lastname" strokeType="OUTSIDE" strokeWidth="0.0" text="Lastname">
+                           <font>
+                              <Font size="26.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </VBox>
+               </children>
+            </TextFlow>
+            <Text fx:id="nickname" layoutX="45.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nickname" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="80.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="130.0" />
+            <Text fx:id="phoneNumber" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="150.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Button layoutX="282.0" layoutY="358.0" mnemonicParsing="false" onAction="#editContact" text="Edit" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="80.0" />
+            <Button layoutX="339.0" layoutY="358.0" mnemonicParsing="false" onAction="#deleteContact" text="Delete" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="20.0" />
+            <Text fx:id="phoneNumber1" layoutX="50.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="180.0" />
+            <Text fx:id="address" layoutX="60.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="200.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="phoneNumber12" layoutX="50.0" layoutY="203.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="230.0" />
+            <Text fx:id="emailAddress" layoutX="50.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="250.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <Text fx:id="phoneNumber121" layoutX="50.0" layoutY="253.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Birth date" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="280.0" />
+            <Text fx:id="birthDate" layoutX="50.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="300.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+               <Button mnemonicParsing="false" onAction="#exportContact" text="Export" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" />
+         </AnchorPane>
+      </children>
+   </AnchorPane>
+</items>
+</SplitPane>
