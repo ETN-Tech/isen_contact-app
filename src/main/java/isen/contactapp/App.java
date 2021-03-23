@@ -57,8 +57,7 @@ public class App extends Application {
                         // import vcard file
                         ImportVCard importer = new ImportVCard(file.getPath());
                         Person newPerson = importer.importFromVcard();
-                        PersonService.addPerson(newPerson);
-                        personDao.addPerson(newPerson);
+                        PersonService.addPerson(personDao.addPerson(newPerson));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
